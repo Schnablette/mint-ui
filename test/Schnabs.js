@@ -3,9 +3,7 @@ const hre = require("hardhat");
 const { ethers } = require("hardhat");
 
 describe("Auction Contract", function () {
-  let auction;
-  let token;
-  let nft;
+  let schnabs;
   const nftId = 0;
 
   let deployer;
