@@ -7,4 +7,12 @@ export default {
   component: Button,
 };
 
-export const Primary = () => <Button>Button</Button>;
+const Template = (args) => <Button {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+  fullWidth: false,
+  intent: "primary",
+  rounded: false,
+  size: "md",
+};
