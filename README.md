@@ -1,4 +1,4 @@
-# MintUI - UI Components for the Web3 Startup
+# MintUI - Themable UI building blocks for Web3
 
 ## Our Vision
 
