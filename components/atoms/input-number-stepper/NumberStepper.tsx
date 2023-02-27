@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./numberStepperStyles.css";
 
@@ -25,14 +25,28 @@ export const NumberStepper = ({
   const [increaseDisabled, setIncreaseDisabled] = useState(
     initialValue === max || initialValue > max
   );
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    value > min ? setDecreaseDisabled(false) : setDecreaseDisabled(true);
+    value < max ? setIncreaseDisabled(false) : setIncreaseDisabled(true);
+  }, [value]);
+
+  const handleInputChange = (event: any) => {
+    setValue(event.target.value);
+  };
 
   const decreaseNum = () => {
-
-  }
+    if (value > min) {
+      setValue(value - 1);
+    }
+  };
 
   const increaseNum = () => {
-    
-  }
+    if (value < max) {
+      setValue(value + 1);
+    }
+  };
 
   return (
     <>
@@ -41,8 +55,9 @@ export const NumberStepper = ({
         <div className="flex align-center">
           <button
             aria-label="decrease"
-            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300"
+            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300 disabled:bg-purple-300 disabled:hover:bg-purple-300"
             disabled={decreaseDisabled}
+            onClick={decreaseNum}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -64,11 +79,13 @@ export const NumberStepper = ({
             id="number-input"
             type="number"
             value={value}
+            onChange={handleInputChange}
           />
           <button
             aria-label="increase"
-            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300"
+            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300  disabled:bg-purple-300 disabled:hover:bg-purple-300"
             disabled={increaseDisabled}
+            onClick={increaseNum}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
