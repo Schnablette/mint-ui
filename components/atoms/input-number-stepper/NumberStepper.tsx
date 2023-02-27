@@ -3,20 +3,26 @@ import React, { useState, useEffect } from "react";
 import "./numberStepperStyles.css";
 
 export interface NumberStepperProps {
+  /** Whether the entire component is disabled */
+  disabled?: boolean;
   /** First number in the input */
   initialValue: number;
   /** Biggest possible option */
   max: number;
   /** Smallest possible option */
   min: number;
+  /** Denotes the field as required */
+  required?: boolean;
   /** Additional props */
   [x: string]: any;
 }
 
 export const NumberStepper = ({
+  disabled: disabledInput = false,
   initialValue = 0,
   max = 100,
   min = 0,
+  required = false,
 }: NumberStepperProps) => {
   const [value, setValue] = useState(initialValue);
   const [decreaseDisabled, setDecreaseDisabled] = useState(
@@ -25,11 +31,15 @@ export const NumberStepper = ({
   const [increaseDisabled, setIncreaseDisabled] = useState(
     initialValue === max || initialValue > max
   );
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
 
   useEffect(() => {
     value > min ? setDecreaseDisabled(false) : setDecreaseDisabled(true);
     value < max ? setIncreaseDisabled(false) : setIncreaseDisabled(true);
+    value > min && value < max && !!value && setError("");
+    value < min && setError(`Minimum allowed value is ${min}`);
+    value > max && setError(`Maximum allowed value is ${max}`);
+    value === null && required && setError("Field is required");
   }, [value]);
 
   const handleInputChange = (event: any) => {
@@ -37,15 +47,13 @@ export const NumberStepper = ({
   };
 
   const decreaseNum = () => {
-    if (value > min) {
-      setValue(value - 1);
-    }
+    (!!value || value === 0) && value > min
+      ? setValue(value - 1)
+      : setValue(min + 1);
   };
 
   const increaseNum = () => {
-    if (value < max) {
-      setValue(value + 1);
-    }
+    (!!value || value === 0) && value < max ? setValue(value + 1) : setValue(0);
   };
 
   return (
@@ -80,6 +88,7 @@ export const NumberStepper = ({
             type="number"
             value={value}
             onChange={handleInputChange}
+            disabled={disabledInput}
           />
           <button
             aria-label="increase"
@@ -104,6 +113,7 @@ export const NumberStepper = ({
           </button>
         </div>
       </div>
+      <p className="text-red-700 text-sm">{error}</p>
     </>
   );
 };
