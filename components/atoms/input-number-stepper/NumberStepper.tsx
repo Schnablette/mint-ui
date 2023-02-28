@@ -5,6 +5,8 @@ import "./numberStepperStyles.css";
 export interface NumberStepperProps {
   /** Whether the entire component is disabled */
   disabled?: boolean;
+  /** Optional text below the component */
+  hint?: string;
   /** ID for component */
   id: string;
   /** First number in the input */
@@ -22,6 +24,7 @@ export interface NumberStepperProps {
 export const NumberStepper = ({
   className,
   disabled: disabledInput = false,
+  hint,
   id,
   initialValue = 0,
   label,
@@ -84,7 +87,7 @@ export const NumberStepper = ({
         <div className="flex align-center">
           <button
             aria-label="decrease"
-            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300 disabled:bg-purple-300 disabled:hover:bg-purple-300"
+            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300 disabled:bg-ghost-600 disabled:hover:bg-ghost-600 rounded-tl-[1px] rounded-bl-[1px]"
             id={`${id}-decrease-button`}
             disabled={decreaseDisabled}
             onClick={decreaseNum}
@@ -115,7 +118,7 @@ export const NumberStepper = ({
           />
           <button
             aria-label="increase"
-            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300  disabled:bg-purple-300 disabled:hover:bg-purple-300"
+            className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300 disabled:bg-ghost-600 disabled:hover:bg-ghost-600 rounded-tr-[1px] rounded-br-[1px]"
             id={`${id}-increase-button`}
             disabled={increaseDisabled}
             onClick={increaseNum}
@@ -137,7 +140,13 @@ export const NumberStepper = ({
           </button>
         </div>
       </div>
-      <p className="text-red-700 text-sm mt-1">{error}</p>
+      {error ? (
+        <p className="text-red-700 text-sm mt-1">{error}</p>
+      ) : hint ? (
+        <p className="text-text-50 text-sm mt-1">{hint}</p>
+      ) : (
+        <div className="mt-6" />
+      )}
     </div>
   );
 };

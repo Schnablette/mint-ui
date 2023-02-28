@@ -8,6 +8,8 @@ export interface ButtonProps {
   children: string | React.ReactNode;
   /** Classes to be applied to component */
   className?: string;
+  /** If button is disabled */
+  disabled?: string;
   /** If button spans width of container */
   fullWidth?: boolean;
   /** Purpose of button */
@@ -141,7 +143,13 @@ export const Button = ({
   ...rest
 }: ButtonProps) => (
   <button
-    className={buttonStyles({ fullWidth, intent, outline, rounded, size })}
+    className={`${buttonStyles({
+      fullWidth,
+      intent,
+      outline,
+      rounded,
+      size,
+    })} ${className}`}
     onClick={onClick}
   >
     {loading ? <LoadingAnimation /> : children}
