@@ -1,6 +1,8 @@
 import React from "react";
 import { cva, VariantProps } from "cva";
 
+import { LoadingAnimation } from "../loading-animation";
+
 export interface ButtonProps {
   /** Content of button */
   children: string | React.ReactNode;
@@ -10,6 +12,8 @@ export interface ButtonProps {
   fullWidth?: boolean;
   /** Purpose of button */
   intent?: "primary" | "secondary" | "danger";
+  /** When button is processing request */
+  loading?: boolean;
   /** Purpose of button */
   onClick: () => undefined;
   /** Size of button */
@@ -129,6 +133,7 @@ export const Button = ({
   className,
   fullWidth = false,
   intent = "primary",
+  loading = false,
   onClick,
   outline,
   rounded = false,
@@ -139,6 +144,6 @@ export const Button = ({
     className={buttonStyles({ fullWidth, intent, outline, rounded, size })}
     onClick={onClick}
   >
-    {children}
+    {loading ? <LoadingAnimation /> : children}
   </button>
 );
