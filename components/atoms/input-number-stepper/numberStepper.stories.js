@@ -11,10 +11,9 @@ const Template = (args) => <NumberStepper {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  children: "text",
-  fullWidth: false,
-  intent: "primary",
-  outline: false,
-  rounded: false,
-  size: "md",
+  label: "Number of NFTs to Mint",
+  id: "nft",
+  initialValue: 1,
+  min: 1,
+  max: 3,
 };
