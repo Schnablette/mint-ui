@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "./numberStepperStyles.css";
+import inputStyles from "./numberStepperStyles.module.css";
 
 export interface NumberStepperProps {
   /** Whether the entire component is disabled */
@@ -128,7 +128,7 @@ export const NumberStepper = ({
             </svg>
           </button>
           <input
-            className="px-1 h-[32px] bg-transparent text-center rounded-none focus:outline-purple-300 focus:outline-offset-[-2px]"
+            className="inputStyles px-1 h-[32px] bg-transparent text-center rounded-none focus:outline-purple-300 focus:outline-offset-[-2px]"
             disabled={disabledInput}
             id={`number-stepper-${id}`}
             onChange={handleInputChange}

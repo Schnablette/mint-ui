@@ -45,13 +45,9 @@ export const ConnectWalletModule = ({ id }: ConnectWalletProps) => {
 
   return (
     <div id={`${id}-wrapper`}>
-      {connected ? (
-        <p>Wallet Connected</p>
-      ) : (
-        <Button id="wallet-connect" onClick={connectWallet} loading={loading}>
-          Connect Wallet
-        </Button>
-      )}
+      <Button id="wallet-connect" onClick={connectWallet}>
+        Connect Wallet
+      </Button>
     </div>
   );
 };

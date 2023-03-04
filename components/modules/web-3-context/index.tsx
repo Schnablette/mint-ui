@@ -20,8 +20,14 @@ type IWeb3Context = {
 const Web3Context = createContext<IWeb3Context>({} as any);
 
 interface Prop {
+  /** Address of deployed contract */
+  contractAbi?: [];
+  /** Address of deployed contract */
+  contractAddress?: string;
   /** Children of component */
   children?: React.ReactNode;
+  /** Address of deployed contract */
+  theme?: {};
 }
 
 export const Web3Provider: React.FC<Prop> = (props) => {

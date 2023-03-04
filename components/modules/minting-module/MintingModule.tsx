@@ -14,15 +14,12 @@ interface MintingProps {
 export const MintingModule = ({ id }: MintingProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { } = useWeb3Context();
+  const {} = useWeb3Context();
 
   const handleSubmit = () => {};
 
   return (
     <>
-      <h2 className="text-xl text-text-900 font-bold mb-4">
-        NFT Minting Module
-      </h2>
       <NumberStepper
         disabled={false}
         hint="Max 3"

@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import { MintingModule, ConnectWalletModule } from "../../components";
+
 export default function Home() {
   return (
     <>
@@ -9,7 +11,30 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <nav className="flex width-full justify-between">
+        <p className="text-xl text-purple-400 font-bold">{"<MintingDapp />"}</p>
+        <ConnectWalletModule>Connect Wallet</ConnectWalletModule>
+      </nav>
+      <div className="px-40 py-10">
+        <h1 className="text-3xl font-light text-text-900">
+          Name of NFT Goes Here
+        </h1>
+        <h2 className="mb-10 font-bold text-text-200">Mint this NFT below</h2>
+        <div className="flex">
+          <div className="bg-ghost-300 rounded-lg w-7/12 h-[400px]" />
+          <div className="px-10">
+            <h3 className="text-xl font-ligh">NFT Mint includes</h3>
+            <ol className="list-disc ml-10">
+              <li>NFT Attribute #1</li>
+              <li>NFT Attribute #2</li>
+              <li>NFT Attribute #3</li>
+              <li>NFT Attribute #4</li>
+              <li>NFT Attribute #5</li>
+            </ol>
+            <MintingModule />
+          </div>
+        </div>
+      </div>
     </>
   );
 }
