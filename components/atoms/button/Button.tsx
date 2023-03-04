@@ -9,7 +9,7 @@ export interface ButtonProps {
   /** Classes to be applied to component */
   className?: string;
   /** If button is disabled */
-  disabled?: string;
+  disabled?: boolean;
   /** If button spans width of container */
   fullWidth?: boolean;
   /** Purpose of button */
@@ -17,7 +17,7 @@ export interface ButtonProps {
   /** When button is processing request */
   loading?: boolean;
   /** Purpose of button */
-  onClick: () => undefined;
+  onClick: () => void;
   /** Size of button */
   outline?: boolean;
   /** Size of button */
@@ -133,6 +133,7 @@ const buttonStyles = cva(
 export const Button = ({
   children,
   className,
+  disabled = false,
   fullWidth = false,
   intent = "primary",
   loading = false,
@@ -149,8 +150,9 @@ export const Button = ({
       outline,
       rounded,
       size,
-    })} ${className}`}
+    })} disabled:bg-purple-300 disabled:hover:bg-purple-300 ${className}`}
     onClick={onClick}
+    disabled={disabled || loading}
   >
     {loading ? <LoadingAnimation /> : children}
   </button>

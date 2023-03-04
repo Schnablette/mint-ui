@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+
+import { useWeb3Context } from "../web-3-context";
+
 import { Button } from "../../atoms";
 
 interface ConnectWalletProps {
@@ -9,17 +13,42 @@ interface ConnectWalletProps {
 }
 
 export const ConnectWalletModule = ({ id }: ConnectWalletProps) => {
-  const [connected, setConnected] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { setProvider } = useWeb3Context();
 
-  const handleConnect = () => undefined;
+  // const handleDisconnect = () => setConnected(false);
+
+  // const [accont, setAccount] = useState();
+
+  // useEffect(() => {
+  //   const onAccountsChange = function (accounts) {
+  //     setAccount(accounts[0]);
+  //   };
+
+  //   window.ethereum.on('accountsChanged', onAccountsChange);
+
+  //   return () => window.ethereum.off("accountsChanged", onAccountsChange);
+  // });
+
+  const connectWallet = async () => {
+    const newProvider = new ethers.providers.Web3Provider(
+      (window as any).ethereum
+    );
+
+    try {
+      await newProvider.send("eth_requestAccounts", []);
+    } catch (err) {
+      console.log(err);
+    }
+
+    const newSigner = newProvider.getSigner();
+  };
 
   return (
     <div id={`${id}-wrapper`}>
       {connected ? (
         <p>Wallet Connected</p>
       ) : (
-        <Button id="wallet-connect" onClick={handleConnect} loading={loading}>
+        <Button id="wallet-connect" onClick={connectWallet} loading={loading}>
           Connect Wallet
         </Button>
       )}

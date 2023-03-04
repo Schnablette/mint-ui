@@ -17,6 +17,12 @@ export interface NumberStepperProps {
   max?: number;
   /** Smallest possible option */
   min?: number;
+  /** Optional value setter to set value outside of component */
+  onChange?: (num: number) => void;
+  /** Value of the component */
+  outsideValue?: number;
+  /** Setter function that hooks into error state */
+  setError?: (error: string) => void;
   /** Additional props */
   [x: string]: any;
 }
@@ -30,6 +36,9 @@ export const NumberStepper = ({
   label,
   max = 100,
   min = 0,
+  onChange,
+  outsideValue,
+  setError: setErrorExternal,
   ...rest
 }: NumberStepperProps) => {
   const [value, setValue] = useState(initialValue);
@@ -42,11 +51,17 @@ export const NumberStepper = ({
   const [error, setError] = useState("");
 
   useEffect(() => {
+    setErrorExternal?.(error);
+  }, [error]);
+
+  useEffect(() => {
     value > min ? setDecreaseDisabled(false) : setDecreaseDisabled(true);
     value < max ? setIncreaseDisabled(false) : setIncreaseDisabled(true);
     value >= min && value <= max && !!value && setError("");
     value < min && setError(`Minimum allowed value is ${min}`);
     value > max && setError(`Maximum allowed value is ${max}`);
+
+    onChange?.(value);
   }, [value, setError, max, min]);
 
   const handleInputChange = (event: any) => {
@@ -54,6 +69,7 @@ export const NumberStepper = ({
 
     if (Number.isInteger(numVal)) {
       setValue(numVal);
+      onChange?.(numVal);
     } else {
       const wholeNum = numVal.toString().split(".");
       setValue(Number(wholeNum[0]));
@@ -81,7 +97,11 @@ export const NumberStepper = ({
       </label>
       <div
         className={`rounded border-solid border-2 w-fit mt-1 ${
-          !!error ? "border-red-500" : "border-purple-500"
+          !!error
+            ? "border-red-500"
+            : disabledInput
+            ? "bg-ghost-900"
+            : "border-purple-500"
         }`}
       >
         <div className="flex align-center">
@@ -89,7 +109,7 @@ export const NumberStepper = ({
             aria-label="decrease"
             className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300 disabled:bg-ghost-600 disabled:hover:bg-ghost-600 rounded-tl-[1px] rounded-bl-[1px]"
             id={`${id}-decrease-button`}
-            disabled={decreaseDisabled}
+            disabled={decreaseDisabled || disabledInput}
             onClick={decreaseNum}
           >
             <svg
@@ -114,13 +134,13 @@ export const NumberStepper = ({
             onChange={handleInputChange}
             step={1}
             type="number"
-            value={value}
+            value={outsideValue ?? value}
           />
           <button
             aria-label="increase"
             className="px-1 h-[32px] bg-purple-500 hover:bg-purple-400 text-white focus:outline-purple-300 focus:outline-2 focus:outline-offset-4 active:bg-purple-300 disabled:bg-ghost-600 disabled:hover:bg-ghost-600 rounded-tr-[1px] rounded-br-[1px]"
             id={`${id}-increase-button`}
-            disabled={increaseDisabled}
+            disabled={increaseDisabled || disabledInput}
             onClick={increaseNum}
           >
             <svg

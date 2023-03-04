@@ -1,34 +1,34 @@
 import React, { useState } from "react";
-import { ethers } from "ethers";
 
 import { NumberStepper, Button } from "../../atoms";
+import { useWeb3Context } from "../web-3-context";
 // import WrapperContext
 
-interface mintingProps {
+interface MintingProps {
   /** ID for component */
   id: string;
   /** Additional props */
   [x: string]: any;
 }
 
-export const MintingModule = () => {
+export const MintingModule = ({ id }: MintingProps) => {
   const [loading, setLoading] = useState(false);
-  let price = "3 ETH";
-  let handleSubmit = () => {
-    setLoading(!loading);
-  };
-  let submitDisabled;
-  // const { price, abi } = useContext(WrapperContext)
+  const [error, setError] = useState("");
+  const { } = useWeb3Context();
+
+  const handleSubmit = () => {};
+
   return (
-    <div>
+    <>
       <h2 className="text-xl text-text-900 font-bold mb-4">
         NFT Minting Module
       </h2>
       <NumberStepper
+        disabled={false}
         hint="Max 3"
         id="num-pudgys"
-        label="Number of NFTs to Mint"
         initialValue={1}
+        label="Number of NFTs to Mint"
         max={3}
         min={1}
       />
@@ -38,8 +38,9 @@ export const MintingModule = () => {
         fullWidth
         onClick={handleSubmit}
         loading={loading}
-      >{`Mint for ${price}`}</Button>
+        disabled={loading || !!error}
+      >{`Mint for ${0}`}</Button>
       <p className="text-sm text-text-50 mt-1">From contract 0x123...abc</p>
-    </div>
+    </>
   );
 };

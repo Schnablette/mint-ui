@@ -15,8 +15,8 @@ Enter MintUI, a component library of usable, accesible components for developers
 ## Roadmap
  - Sun, Feb 26 - Set up environment and plan proof of concept
  - Mon, Feb 27 - Design and build minting component
- - Tue, Feb 28 - Figure out themability and context wrapper
- - Wed, Mar 01 - Figure out npm packaging and gatekeeping
- - Thu, Mar 02 - Build docs site
- - Fri, Mar 03 - User testing
+ - Tue, Feb 28 - Build minting component
+ - Wed, Mar 01 - Figure out themability and context wrapper
+ - Thu, Mar 02 - Figure out npm packaging and gatekeeping / User testing
+ - Fri, Mar 03 - Build docs site
  - Sat, Mar 04 - Polish then submit project for hackathon @ 8pm
