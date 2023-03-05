@@ -1,6 +1,8 @@
 import Head from "next/head";
+import Image from "next/Image"
 
 import { MintingModule, ConnectWalletModule } from "../../components";
+import Sporky from "../../public/Sporky.png";
 
 export default function Home() {
   return (
@@ -11,8 +13,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav className="flex width-full justify-between">
-        <p className="text-xl text-purple-400 font-bold">{"<MintingDapp />"}</p>
+      <nav className="flex width-full justify-between px-10 py-2 bg-purple-50 items-center">
+        <p className="text-xl text-purple-500 font-bold">{"<MintingDapp />"}</p>
         <ConnectWalletModule>Connect Wallet</ConnectWalletModule>
       </nav>
       <div className="px-40 py-10">
@@ -21,15 +23,15 @@ export default function Home() {
         </h1>
         <h2 className="mb-10 font-bold text-text-200">Mint this NFT below</h2>
         <div className="flex">
-          <div className="bg-ghost-300 rounded-lg w-7/12 h-[400px]" />
-          <div className="px-10">
-            <h3 className="text-xl font-ligh">NFT Mint includes</h3>
-            <ol className="list-disc ml-10">
-              <li>NFT Attribute #1</li>
-              <li>NFT Attribute #2</li>
-              <li>NFT Attribute #3</li>
-              <li>NFT Attribute #4</li>
-              <li>NFT Attribute #5</li>
+          <div className="bg-purple-50 rounded-lg w-7/12 h-[400px] flex flex-col justify-center">
+            <Image alt="sporky" src={Sporky} className="w-40 text-center mx-auto"/>
+          </div>
+          <div className="px-10 flex flex-col justify-center">
+            <h3 className="text-xl text-text900 mb-5">NFT Mint includes</h3>
+            <ol className="list-disc ml-5 mb-10">
+              <li>NFT Attribute: Invites you to exclusive events</li>
+              <li>NFT Attribute: Includes you in merch drops</li>
+              <li>NFT Attribute: Allows you to glow in the dark</li>
             </ol>
             <MintingModule />
           </div>

@@ -36,7 +36,7 @@ export const MintingModule = ({ id }: MintingProps) => {
         onClick={handleSubmit}
         loading={loading}
         disabled={loading || !!error}
-      >{`Mint for ${0}`}</Button>
+      >{`Mint with ETH`}</Button>
       <p className="text-sm text-text-50 mt-1">From contract 0x123...abc</p>
     </>
   );

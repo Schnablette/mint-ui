@@ -11,7 +11,7 @@ contract Schnabs is ERC721, ERC721Burnable, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("Schnabs", "SCH") {}
+    constructor() ERC721("Sporkys", "SPORK") {}
 
     function safeMint(address to) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
