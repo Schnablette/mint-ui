@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { NumberStepper, Button } from "../../atoms";
 import { useWeb3Context } from "../web-3-context";
@@ -16,7 +16,18 @@ export const MintingModule = ({ id }: MintingProps) => {
   const [error, setError] = useState("");
   const {} = useWeb3Context();
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+        alert("Successfully minted NFT");
+      }, 3000);
+    }
+  }, [loading]);
+
+  const handleSubmit = () => {
+    setLoading(!loading);
+  };
 
   return (
     <>
@@ -28,6 +39,7 @@ export const MintingModule = ({ id }: MintingProps) => {
         label="Number of NFTs to Mint"
         max={3}
         min={1}
+        setError={setError}
       />
       <Button
         className="mt-4"
